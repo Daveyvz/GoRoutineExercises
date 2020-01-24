@@ -8,7 +8,6 @@ import (
 var wg sync.WaitGroup
 
 func main() {
-	fmt.Println("hello world")
 	wg.Add(2)
 	go foo()
 	go bar()
