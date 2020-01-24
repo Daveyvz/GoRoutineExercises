@@ -1,46 +1,50 @@
 package main
 
 import (
-	"runtime"
 	"sync"
+	"sync/atomic"
 )
 
 var wg sync.WaitGroup
 
 func main() {
 	var wg sync.WaitGroup
-	count := 0
+	var count int64
 	wg.Add(3)
-	var mu sync.Mutex
+	//var mu sync.Mutex
 
 	go func() {
-		mu.Lock()
-		v := count
+		//	mu.Lock()
+		/*v := count
 		runtime.Gosched()
 		v++
-		count = v
+		count = v */
 		wg.Done()
-		mu.Unlock()
+		//	mu.Unlock()
+		atomic.AddInt64(&count, 1)
+
 	}()
 
 	go func() {
-		mu.Lock()
-		v := count
+		//	mu.Lock()
+		/*v := count
 		runtime.Gosched()
 		v++
-		count = v
+		count = v */
 		wg.Done()
-		mu.Unlock()
+		//	mu.Unlock()
+		atomic.AddInt64(&count, 1)
 	}()
 
 	go func() {
-		mu.Lock()
-		v := count
+		//	mu.Lock()
+		/*v := count
 		runtime.Gosched()
 		v++
-		count = v
+		count = v */
 		wg.Done()
-		mu.Unlock()
+		//	mu.Unlock()
+		atomic.AddInt64(&count, 1)
 	}()
 
 	wg.Wait()
